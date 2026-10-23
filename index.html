@@ -6,164 +6,294 @@
 <title>Join Pasio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one dark drafting sheet — framed hero with a perspective dimension drawing, then three short bands and one call to apply. Single committed dark look. */
+/* Layout: an engineering drawing sheet. Title-blocked hero with a live perspective construction, a Toronto ticker, a bill of materials for roles, a tolerance spec, a three-node process line, and one closing call. Single committed dark look. */
 :root{
-  --bg:#0F1110; --panel:#151816; --fg:#EEEAE2; --muted:#A3A49C; --line:rgba(238,234,226,.18); --accent:#C9B98F;
+  --bg:#0D0F0E; --sheet:#111412; --fg:#EFEBE3; --muted:#979A92; --line:rgba(239,235,227,.14); --line2:rgba(239,235,227,.07); --brass:#CDB98A; --brass-soft:rgba(205,185,138,.14);
   --display:'Instrument Serif',Georgia,'Times New Roman',serif;
   --body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{background:var(--bg)}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:300;font-size:17px;line-height:1.6;
-  background-image:radial-gradient(rgba(238,234,226,.05) 1px,transparent 1.2px);background-size:28px 28px}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:300;font-size:17px;line-height:1.6;
+  background-image:linear-gradient(var(--line2) 1px,transparent 1px),linear-gradient(90deg,var(--line2) 1px,transparent 1px),linear-gradient(rgba(239,235,227,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(239,235,227,.025) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px;background-attachment:fixed}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 a{color:inherit}
-.mono{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-header .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:28px}
+::selection{background:var(--brass);color:var(--bg)}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+i{font-style:italic}
+
+/* header */
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:24px}
 .logo{display:flex;flex-direction:column;line-height:1;text-decoration:none}
-.logo b{font-family:var(--body);font-weight:500;font-size:22px;letter-spacing:.22em}
-.logo span{font-family:var(--body);font-weight:400;font-size:9px;letter-spacing:.6em;color:var(--muted);margin-top:6px}
+.logo b{font-weight:500;font-size:20px;letter-spacing:.24em}
+.logo span{font-size:8.5px;letter-spacing:.62em;color:var(--muted);margin-top:6px}
+nav{display:flex;align-items:center;gap:26px}
+nav a.mono{text-decoration:none;transition:color .2s}
+nav a.mono:hover{color:var(--fg)}
+.pill{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border:1px solid var(--brass);color:var(--brass);border-radius:999px;padding:10px 18px;transition:background .2s,color .2s}
+.pill:hover{background:var(--brass);color:var(--bg)}
 
-.hero{border:1px solid var(--line);position:relative;padding:clamp(28px,6vw,72px);display:grid;gap:40px;grid-template-columns:1.3fr 1fr;align-items:end}
-.hero::before,.hero::after{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--accent)}
-.hero::before{top:-7px;left:-7px;border-right:0;border-bottom:0}
-.hero::after{bottom:-7px;right:-7px;border-left:0;border-top:0}
-.hero-copy{display:flex;flex-direction:column;gap:28px;min-width:0}
-.k{display:flex;align-items:center;gap:14px}
-.k::before{content:"";width:36px;height:1px;background:var(--accent)}
-h1{font-family:var(--display);font-weight:400;font-size:clamp(64px,11vw,148px);line-height:.92;letter-spacing:-.015em;margin:0;text-wrap:balance}
-h1 i{color:var(--accent)}
-.lede{font-size:clamp(18px,2vw,21px);color:var(--fg);opacity:.86;max-width:34em;margin:0}
-.cta-row{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:12px;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:500;font-size:16px;padding:16px 28px;border-radius:999px;transition:transform .2s ease,background .2s ease}
-.btn:hover{background:var(--accent);transform:translateY(-1px)}
-.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* hero sheet */
+.sheet{position:relative;border:1px solid var(--line);background:linear-gradient(180deg,rgba(17,20,18,.92),rgba(13,15,14,.92))}
+.reg{position:absolute;width:18px;height:18px;border-color:var(--brass);border-style:solid;border-width:0}
+.reg.tl{top:-9px;left:-9px;border-top-width:1px;border-left-width:1px}
+.reg.tr{top:-9px;right:-9px;border-top-width:1px;border-right-width:1px}
+.reg.bl{bottom:-9px;left:-9px;border-bottom-width:1px;border-left-width:1px}
+.reg.br{bottom:-9px;right:-9px;border-bottom-width:1px;border-right-width:1px}
+.sheet-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 24px;border-bottom:1px solid var(--line)}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(28px,5vw,64px) clamp(20px,4vw,48px)}
+.hero>*{min-width:0}
+.kicker{display:flex;align-items:center;gap:12px;color:var(--brass)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--brass);box-shadow:0 0 0 0 rgba(205,185,138,.6);animation:ping 2.4s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(205,185,138,.55)}70%{box-shadow:0 0 0 10px rgba(205,185,138,0)}100%{box-shadow:0 0 0 0 rgba(205,185,138,0)}}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(68px,10.5vw,152px);line-height:.86;letter-spacing:-.02em;margin:22px 0 26px}
+h1 .l2{display:block;padding-left:.55em}
+h1 i{color:var(--brass)}
+.lede{font-size:clamp(18px,1.8vw,20px);max-width:31em;margin:0;color:var(--fg);opacity:.88}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:14px;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:500;font-size:16px;padding:17px 30px;border-radius:999px;transition:background .25s,transform .25s}
+.btn span{transition:transform .25s}
+.btn:hover{background:var(--brass)}
+.btn:hover span{transform:translateX(4px)}
+.btn:focus-visible,.pill:focus-visible,nav a:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
 .note{font-size:14px;color:var(--muted)}
-.drawing{width:100%;max-width:100%;height:auto}
-.drawing text{font-family:var(--mono);fill:var(--muted)}
 
-section{padding-block:clamp(56px,9vw,104px)}
-h2{font-family:var(--display);font-weight:400;font-size:clamp(36px,5vw,56px);line-height:1;margin:0;text-wrap:balance}
-h2 i{color:var(--accent)}
-.split{display:grid;grid-template-columns:1fr 1.6fr;gap:clamp(28px,5vw,72px);align-items:start}
-.split>*{min-width:0}
-.rows{display:flex;flex-direction:column;border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:150px 1fr;gap:20px;padding-block:22px;border-bottom:1px solid var(--line)}
-.row h3{font-family:var(--body);font-weight:500;font-size:17px;margin:0 0 4px}
-.row p{margin:0;color:var(--muted)}
+/* perspective art */
+.artbox{position:relative}
+.art{width:100%;max-width:100%;height:auto;display:block;overflow:visible}
+.art line,.art circle{fill:none;stroke:var(--fg);stroke-linecap:round;vector-effect:non-scaling-stroke}
+.art .c1{stroke-opacity:.55;stroke-width:1.2}
+.art .c2{stroke-opacity:.25;stroke-width:1;stroke-dasharray:4 5}
+.art .c3{stroke-opacity:.12;stroke-width:1}
+.art .hz{stroke-opacity:.25;stroke-width:1;stroke-dasharray:1 6}
+.art .dm{stroke:var(--brass);stroke-width:1.4}
+.art .ex{stroke:var(--brass);stroke-opacity:.45;stroke-width:1;stroke-dasharray:2 4}
+.art .gl{fill:var(--fg);stroke:var(--sheet);stroke-width:5px;paint-order:stroke;stroke-linejoin:round}
+.art text{font-family:var(--mono);fill:var(--brass);font-size:11px;letter-spacing:2px}
+.art .vpl{fill:var(--muted);font-size:9px;letter-spacing:3px}
+.art .c1,.art .dm{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.6s cubic-bezier(.6,0,.2,1) forwards}
+.art .c1:nth-of-type(2){animation-delay:.15s}
+.art .dm{animation-delay:1.2s}
+.art .glyphs{opacity:0;animation:fade 1.2s .7s forwards}
+.art .lb{opacity:0;animation:fade .8s 2s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade{to{opacity:1}}
+.readout{position:absolute;right:0;bottom:-6px;font-variant-numeric:tabular-nums}
 
-.who{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
-.who span{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:15px}
+/* title block */
+.titleblock{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line)}
+.titleblock div{padding:14px 20px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.titleblock div+div{border-left:1px solid var(--line)}
+.titleblock b{font-weight:400;font-size:14.5px;color:var(--fg);overflow-wrap:anywhere}
+.titleblock .open{color:var(--brass)}
 
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line)}
-.step{padding:28px;display:flex;flex-direction:column;gap:12px;min-width:0}
-.step+.step{border-left:1px solid var(--line)}
-.step .n{font-family:var(--display);font-size:56px;line-height:1;color:var(--accent)}
-.step h3{margin:0;font-weight:500;font-size:18px}
-.step p{margin:0;color:var(--muted)}
+/* ticker */
+.ticker{border-block:1px solid var(--line);overflow:hidden;margin-top:clamp(56px,8vw,96px);background:rgba(13,15,14,.85)}
+.track{display:flex;width:max-content;animation:roll 48s linear infinite}
+.track span{font-family:var(--display);font-size:clamp(30px,4vw,46px);padding:16px 0;white-space:nowrap}
+.track span i{color:var(--brass);padding:0 .6em;font-size:.7em;vertical-align:middle}
+@keyframes roll{to{transform:translateX(-50%)}}
 
-.final{text-align:left;border-top:1px solid var(--line)}
-.final .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:28px}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:28px;border-top:1px solid var(--line)}
+/* sections */
+section{padding-block:clamp(64px,9vw,112px)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:36px}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(40px,5.4vw,68px);line-height:.95;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h2 i{color:var(--brass)}
+.sub{max-width:30em;color:var(--muted);margin:0}
 
-@media (max-width:820px){
+/* bill of materials */
+.bom{overflow-x:auto;border:1px solid var(--line);background:rgba(17,20,18,.85)}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:left;padding:14px 20px;border-bottom:1px solid var(--line)}
+td{padding:22px 20px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+tbody tr{transition:background .2s}
+tbody tr:hover{background:var(--brass-soft)}
+td.no{font-family:var(--mono);font-size:13px;color:var(--brass);width:70px;font-variant-numeric:tabular-nums}
+td.role{font-family:var(--display);font-size:28px;line-height:1.05;width:30%}
+td.desc{color:var(--muted)}
+td.qty{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+td.qty b{font-weight:400;color:var(--brass)}
+
+/* tolerances */
+.spec{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(28px,5vw,80px);align-items:start}
+.spec>*{min-width:0}
+.tol{display:flex;flex-direction:column}
+.tol div{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding-block:18px;border-bottom:1px solid var(--line)}
+.tol div:first-child{border-top:1px solid var(--line)}
+.tol span{font-size:19px}
+.tol em{font-style:normal;font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;color:var(--brass);white-space:nowrap}
+.tol em.soft{color:var(--muted)}
+
+/* process */
+.flow{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.flow::before{content:"";position:absolute;left:12px;right:12px;top:12px;height:1px;background:repeating-linear-gradient(90deg,var(--brass) 0 6px,transparent 6px 12px);opacity:.6}
+.node{position:relative;display:flex;flex-direction:column;gap:10px;padding-top:44px;min-width:0}
+.node::before{content:"";position:absolute;top:5px;left:0;width:14px;height:14px;border-radius:50%;border:1px solid var(--brass);background:var(--bg)}
+.node:last-child::before{background:var(--brass)}
+.node h3{margin:0;font-family:var(--display);font-weight:400;font-size:32px;line-height:1}
+.node p{margin:0;color:var(--muted);max-width:22em}
+
+/* closing */
+.close{border:1px solid var(--line);background:rgba(17,20,18,.9);position:relative;padding:clamp(36px,6vw,80px) clamp(20px,4vw,56px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:32px}
+.close h2{font-size:clamp(48px,7.5vw,104px)}
+.dimline{display:flex;align-items:center;gap:14px;margin-top:22px;max-width:520px}
+.dimline i{flex:1;height:1px;background:var(--brass);position:relative}
+.dimline i::before,.dimline i::after{content:"";position:absolute;top:-6px;width:1px;height:13px;background:var(--brass)}
+.dimline i::before{left:0}.dimline i::after{right:0}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:32px}
+
+@media (max-width:900px){
   .hero{grid-template-columns:1fr}
-  .split{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr}
-  .step+.step{border-left:0;border-top:1px solid var(--line)}
-  .row{grid-template-columns:1fr;gap:6px}
+  .titleblock{grid-template-columns:repeat(2,1fr)}
+  .titleblock div:nth-child(odd){border-left:0}
+  .titleblock div:nth-child(n+3){border-top:1px solid var(--line)}
+  .titleblock div:last-child{grid-column:1/-1}
+  .spec{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr;gap:0}
+  .flow::before{left:6px;right:auto;top:12px;bottom:12px;width:1px;height:auto;background:repeating-linear-gradient(180deg,var(--brass) 0 6px,transparent 6px 12px)}
+  .node{padding:0 0 36px 40px}
+  .node::before{top:6px}
+  nav a.mono{display:none}
+  .readout{display:none}
 }
-@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .art .c1,.art .dm{stroke-dashoffset:0}
+  .art .glyphs,.art .lb{opacity:1}
+  html{scroll-behavior:auto}
+}
 </style>
 
 </head>
 <body>
 <header><div class="wrap">
   <a class="logo" href="#top" aria-label="Pasio Consulting"><b>PASIO</b><span>CONSULTING</span></a>
-  <a class="mono" href="https://form.jotform.com/262956151148057" target="_blank" rel="noopener" style="color:var(--fg);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 16px">Join the team →</a>
+  <nav>
+    <a class="mono" href="#roles">Roles</a>
+    <a class="mono" href="#spec">Who</a>
+    <a class="mono" href="#process">Process</a>
+    <a class="pill" href="https://form.jotform.com/262956151148057" target="_blank" rel="noopener">Apply →</a>
+  </nav>
 </div></header>
 
 <main id="top">
   <div class="wrap">
-    <div class="hero">
-      <div class="hero-copy">
-        <div class="k mono">Now hiring · Pasio Consulting</div>
-        <h1>Join the <i>team.</i></h1>
-        <p class="lede">Help Toronto's own businesses win. If you're a passionate person who wants to bring more clients to Toronto's very own firms, join Pasio. Fill out the form and we'll contact you.</p>
-        <div class="cta-row">
-          <a class="btn" href="https://form.jotform.com/262956151148057" target="_blank" rel="noopener">Apply to join <span aria-hidden="true">→</span></a>
-          <span class="note">Takes about 3 minutes</span>
+    <div class="sheet">
+      <span class="reg tl"></span><span class="reg tr"></span><span class="reg bl"></span><span class="reg br"></span>
+      <div class="sheet-top"><span class="mono">DWG PAS-001 · Rev A</span><span class="mono">Sheet 1 of 1</span></div>
+      <div class="hero">
+        <div>
+          <div class="kicker mono"><span class="dot" aria-hidden="true"></span>Now hiring in Toronto</div>
+          <h1>Join <span class="l2">the <i>team.</i></span></h1>
+          <p class="lede">If you're passionate about local business, help us bring more clients to Toronto's very own firms. Fill out the form and we'll contact you.</p>
+          <div class="cta-row">
+            <a class="btn" href="https://form.jotform.com/262956151148057" target="_blank" rel="noopener">Apply to join <span aria-hidden="true">→</span></a>
+            <span class="note">Takes about 3 minutes</span>
+          </div>
+        </div>
+        <div class="artbox" id="artbox">
+          <svg class="art" viewBox="-24 70 650 330" role="img" aria-label="The word Pasio drawn in one-point perspective with construction lines meeting at a vanishing point"><line class="c1" pathLength="1" x1="-10.5" y1="100.7" x2="560.0" y2="250.0"/><line class="c1" pathLength="1" x1="-10.5" y1="292.1" x2="560.0" y2="250.0"/><line class="c2" pathLength="1" x1="-10.5" y1="151.7" x2="560.0" y2="250.0"/><line class="hz" pathLength="1" x1="-10.5" y1="250.0" x2="610.0" y2="250.0"/><line class="c3" pathLength="1" x1="40.0" y1="303.4" x2="40.0" y2="98.9"/><line class="c3" pathLength="1" x1="128.2" y1="294.3" x2="128.2" y2="124.5"/><line class="c3" pathLength="1" x1="148.2" y1="292.3" x2="148.2" y2="130.3"/><line class="c3" pathLength="1" x1="204.5" y1="286.5" x2="204.5" y2="146.7"/><line class="c3" pathLength="1" x1="215.6" y1="285.4" x2="215.6" y2="149.9"/><line class="c3" pathLength="1" x1="250.0" y1="281.8" x2="250.0" y2="159.9"/><line class="c3" pathLength="1" x1="264.0" y1="280.4" x2="264.0" y2="164.0"/><line class="c3" pathLength="1" x1="269.7" y1="279.8" x2="269.7" y2="165.6"/><line class="c3" pathLength="1" x1="281.8" y1="278.6" x2="281.8" y2="169.1"/><line class="c3" pathLength="1" x1="308.5" y1="275.8" x2="308.5" y2="176.9"/><line class="dm" pathLength="1" x1="40.0" y1="370.9" x2="308.5" y2="308.5"/><line class="dm" pathLength="1" x1="40.0" y1="384.6" x2="40.0" y2="357.1"/><line class="dm" pathLength="1" x1="308.5" y1="315.1" x2="308.5" y2="301.8"/><line class="ex" pathLength="1" x1="40.0" y1="298.4" x2="40.0" y2="357.1"/><line class="ex" pathLength="1" x1="308.5" y1="273.4" x2="308.5" y2="301.8"/><text class="lb" transform="translate(174.2,339.7) rotate(-13.09) translate(0,22)" text-anchor="middle">100.00 ± 0.01</text><circle class="c1" pathLength="1" cx="560" cy="250" r="5"/><text class="vpl" x="560" y="234" text-anchor="middle">VP</text><g class="glyphs"><path class="gl" d="M53.5,287.4L40.0,288.4L40.0,113.9L96.3,128.6L98.1,129.1L99.9,129.7L101.6,130.3L103.2,131.0L104.8,131.8L106.3,132.6L107.8,133.4L109.2,134.3L110.6,135.3L111.9,136.3L113.1,137.4L114.3,138.5L115.5,139.7L116.5,140.9L117.6,142.1L118.6,143.4L119.5,144.7L120.4,146.1L121.2,147.5L122.0,149.0L122.8,150.5L123.5,152.0L124.1,153.6L124.7,155.2L125.3,156.9L125.8,158.6L126.2,160.3L126.6,162.1L127.0,163.9L127.3,165.7L127.6,167.6L127.8,169.5L127.9,171.4L128.1,173.4L128.1,175.4L128.2,177.5L128.1,179.5L128.1,181.5L127.9,183.4L127.8,185.3L127.6,187.2L127.3,189.0L127.0,190.7L126.6,192.4L126.2,194.0L125.8,195.6L125.3,197.1L124.7,198.6L124.1,200.1L123.5,201.5L122.8,202.8L122.0,204.0L121.2,205.2L120.4,206.4L119.5,207.5L118.6,208.5L117.6,209.4L116.5,210.3L115.5,211.2L114.3,212.0L113.1,212.7L111.9,213.4L110.6,213.9L109.2,214.4L107.8,214.9L106.3,215.2L104.8,215.5L103.2,215.7L101.6,215.9L99.9,215.9L98.1,215.9L96.3,215.8L53.5,212.6ZM53.5,130.3L53.5,199.7L96.3,204.0L97.5,204.1L98.6,204.1L99.8,204.1L100.9,204.0L101.9,203.9L102.9,203.8L103.9,203.6L104.9,203.3L105.8,203.0L106.7,202.7L107.5,202.3L108.3,201.8L109.1,201.3L109.8,200.8L110.5,200.2L111.2,199.6L111.8,199.0L112.4,198.3L113.0,197.6L113.5,196.9L114.0,196.1L114.5,195.3L114.9,194.5L115.3,193.6L115.7,192.7L116.0,191.7L116.3,190.8L116.6,189.8L116.8,188.7L117.0,187.7L117.2,186.6L117.3,185.5L117.4,184.4L117.5,183.2L117.6,182.0L117.6,180.8L117.6,170.6L117.6,169.4L117.5,168.2L117.4,167.0L117.3,165.9L117.2,164.7L117.0,163.6L116.8,162.5L116.6,161.4L116.3,160.3L116.0,159.2L115.7,158.2L115.3,157.1L114.9,156.1L114.5,155.1L114.0,154.1L113.5,153.2L113.0,152.3L112.4,151.4L111.8,150.5L111.2,149.6L110.5,148.8L109.8,148.0L109.1,147.3L108.3,146.5L107.5,145.8L106.7,145.2L105.8,144.5L104.9,143.9L103.9,143.4L102.9,142.8L101.9,142.3L100.9,141.9L99.8,141.5L98.6,141.1L97.5,140.7L96.3,140.4Z"/><path class="gl" d="M204.5,276.2L198.2,276.7L197.7,276.7L197.3,276.7L196.9,276.7L196.5,276.6L196.2,276.6L195.8,276.5L195.4,276.3L195.1,276.2L194.8,276.0L194.5,275.8L194.2,275.6L193.9,275.4L193.6,275.1L193.3,274.8L193.1,274.5L192.8,274.2L192.6,273.8L192.4,273.4L192.2,273.1L192.0,272.7L191.8,272.2L191.7,271.8L191.5,271.3L191.4,270.8L191.3,270.3L191.2,269.8L191.1,269.3L191.0,268.7L190.9,268.2L190.8,267.6L190.8,267.0L190.7,266.4L190.7,265.7L190.7,265.1L190.7,264.4L190.6,263.8L190.6,259.0L193.3,262.8L190.2,262.9L189.8,264.1L189.4,265.3L189.0,266.5L188.6,267.6L188.1,268.7L187.5,269.8L187.0,270.8L186.4,271.8L185.7,272.7L185.0,273.6L184.3,274.5L183.5,275.3L182.7,276.1L181.9,276.9L181.0,277.6L180.1,278.2L179.1,278.7L178.1,279.2L177.1,279.7L176.0,280.0L174.9,280.4L173.7,280.6L172.5,280.8L171.2,280.9L169.5,281.0L167.8,281.0L166.2,280.9L164.7,280.6L163.2,280.3L161.7,279.8L160.4,279.2L159.0,278.5L157.8,277.7L156.6,276.7L155.5,275.7L154.4,274.5L153.4,273.2L152.5,271.8L151.7,270.3L151.0,268.8L150.3,267.1L149.7,265.3L149.3,263.5L148.9,261.6L148.6,259.5L148.3,257.4L148.2,255.2L148.2,252.9L148.2,251.4L148.2,249.9L148.3,248.5L148.5,247.1L148.7,245.7L148.9,244.4L149.2,243.2L149.5,241.9L149.9,240.7L150.3,239.5L150.7,238.4L151.2,237.3L151.8,236.3L152.3,235.3L153.0,234.3L153.6,233.4L154.4,232.6L155.1,231.8L155.9,231.0L156.8,230.3L157.6,229.6L158.6,229.0L159.5,228.4L160.6,227.8L161.6,227.3L162.7,226.9L163.9,226.5L165.1,226.2L166.3,225.9L167.6,225.7L168.9,225.5L170.3,225.4L171.7,225.3L173.1,225.3L174.6,225.3L176.2,225.4L190.4,226.3L190.4,215.6L190.4,213.8L190.3,212.0L190.2,210.3L190.0,208.6L189.7,207.1L189.5,205.6L189.1,204.1L188.7,202.8L188.2,201.5L187.7,200.3L187.2,199.1L186.5,198.0L185.9,197.0L185.1,196.1L184.3,195.2L183.5,194.4L182.6,193.6L181.6,193.0L180.6,192.4L179.5,191.8L178.3,191.4L177.1,191.0L175.9,190.7L174.5,190.4L173.5,190.3L172.5,190.2L171.5,190.2L170.5,190.3L169.5,190.4L168.6,190.5L167.7,190.8L166.8,191.1L165.9,191.4L165.1,191.9L164.3,192.4L163.5,192.9L162.8,193.5L162.0,194.2L161.3,194.9L160.6,195.7L160.0,196.5L159.3,197.4L158.7,198.4L158.1,199.4L157.5,200.4L157.0,201.5L156.4,202.7L155.9,203.9L150.9,197.4L151.4,196.0L152.0,194.7L152.6,193.5L153.2,192.3L153.9,191.1L154.6,190.0L155.4,189.0L156.2,187.9L157.1,187.0L158.0,186.1L158.9,185.2L159.9,184.4L160.9,183.7L161.9,183.0L163.0,182.5L164.2,182.0L165.4,181.6L166.6,181.3L167.9,181.1L169.2,181.0L170.5,181.0L171.9,181.0L173.3,181.2L174.8,181.4L176.6,181.8L178.3,182.3L180.0,182.8L181.6,183.5L183.1,184.3L184.5,185.2L185.8,186.1L187.1,187.2L188.3,188.3L189.4,189.6L190.4,190.9L191.4,192.3L192.3,193.8L193.1,195.4L193.8,197.1L194.5,198.8L195.1,200.6L195.6,202.4L196.0,204.4L196.3,206.4L196.6,208.5L196.8,210.6L196.9,212.9L196.9,215.2L196.9,268.1L204.5,267.7ZM190.4,233.9L175.9,233.3L174.3,233.3L172.8,233.3L171.4,233.4L170.0,233.6L168.7,233.8L167.5,234.1L166.3,234.5L165.2,234.9L164.1,235.4L163.2,236.0L162.3,236.6L161.4,237.4L160.7,238.1L160.0,239.0L159.4,239.9L158.8,240.8L158.3,241.8L157.9,242.9L157.5,244.0L157.2,245.1L156.9,246.4L156.8,247.6L156.7,248.9L156.6,250.3L156.6,255.0L156.7,256.4L156.8,257.7L156.9,259.0L157.1,260.2L157.4,261.4L157.8,262.5L158.2,263.5L158.6,264.5L159.2,265.4L159.7,266.3L160.4,267.1L161.1,267.8L161.8,268.5L162.6,269.2L163.4,269.7L164.3,270.2L165.2,270.6L166.1,271.0L167.0,271.2L168.0,271.5L169.0,271.6L170.1,271.7L171.1,271.8L172.2,271.7L173.1,271.7L174.0,271.6L174.8,271.4L175.7,271.3L176.5,271.1L177.3,270.8L178.0,270.6L178.8,270.3L179.5,269.9L180.3,269.6L181.0,269.2L181.7,268.7L182.3,268.3L183.0,267.8L183.6,267.3L184.2,266.8L184.8,266.2L185.3,265.6L185.8,265.0L186.3,264.3L186.8,263.6L187.2,262.9L187.7,262.2L188.1,261.5L188.4,260.7L188.8,259.9L189.1,259.1L189.4,258.2L189.6,257.4L189.8,256.5L190.0,255.6L190.2,254.7L190.3,253.7L190.3,252.8L190.4,251.8L190.4,250.8Z"/><path class="gl" d="M234.4,275.9L233.4,276.0L232.4,276.0L231.4,275.9L230.5,275.8L229.6,275.6L228.7,275.4L227.8,275.1L226.9,274.7L226.1,274.3L225.3,273.8L224.5,273.2L223.7,272.6L222.9,272.0L222.2,271.3L221.5,270.5L220.8,269.7L220.1,268.8L219.4,267.9L218.7,266.9L218.0,265.9L217.4,264.8L216.8,263.6L216.2,262.4L215.6,261.2L219.8,255.7L220.3,256.7L220.8,257.8L221.4,258.8L221.9,259.7L222.5,260.6L223.0,261.4L223.6,262.2L224.2,262.9L224.7,263.6L225.3,264.3L225.9,264.9L226.5,265.4L227.1,265.9L227.8,266.3L228.4,266.7L229.0,267.1L229.7,267.4L230.4,267.7L231.1,267.9L231.8,268.0L232.5,268.2L233.2,268.2L234.0,268.2L234.7,268.2L235.6,268.2L236.4,268.0L237.2,267.8L238.0,267.6L238.7,267.3L239.4,267.0L240.0,266.6L240.6,266.2L241.2,265.7L241.8,265.1L242.3,264.5L242.7,263.9L243.2,263.2L243.6,262.5L243.9,261.7L244.3,260.9L244.5,260.0L244.8,259.2L245.0,258.2L245.2,257.3L245.3,256.2L245.4,255.2L245.4,254.1L245.5,253.0L245.4,252.0L245.4,251.0L245.3,250.1L245.2,249.2L245.1,248.3L244.9,247.5L244.8,246.7L244.5,246.0L244.3,245.2L244.0,244.5L243.7,243.9L243.4,243.2L243.0,242.6L242.6,242.1L242.2,241.5L241.7,241.0L241.2,240.5L240.6,240.1L240.0,239.7L239.3,239.3L238.7,239.0L237.9,238.6L237.2,238.4L236.4,238.1L232.6,236.9L231.9,236.6L231.2,236.4L230.5,236.1L229.8,235.9L229.2,235.6L228.5,235.2L227.9,234.9L227.3,234.5L226.7,234.1L226.1,233.7L225.5,233.3L224.9,232.9L224.3,232.4L223.8,231.9L223.3,231.3L222.8,230.8L222.3,230.2L221.8,229.5L221.4,228.9L221.0,228.2L220.6,227.5L220.2,226.7L219.8,225.9L219.5,225.1L219.2,224.3L218.9,223.4L218.7,222.5L218.4,221.5L218.2,220.5L218.1,219.5L217.9,218.4L217.8,217.3L217.7,216.2L217.6,215.0L217.6,213.8L217.6,212.6L217.6,210.6L217.7,208.8L217.9,207.0L218.1,205.4L218.4,203.8L218.8,202.4L219.3,201.0L219.8,199.7L220.4,198.6L221.0,197.5L221.7,196.5L222.5,195.7L223.3,194.9L224.2,194.2L225.0,193.6L226.0,193.0L226.9,192.6L227.8,192.3L228.8,192.0L229.8,191.8L230.9,191.7L231.9,191.7L233.0,191.8L234.1,192.0L234.8,192.1L235.4,192.2L236.0,192.4L236.6,192.6L237.2,192.8L237.7,193.0L238.3,193.2L238.8,193.5L239.3,193.8L239.8,194.0L240.3,194.4L240.8,194.7L241.2,195.0L241.7,195.4L242.1,195.8L242.5,196.1L242.9,196.5L243.3,197.0L243.7,197.4L244.1,197.8L244.5,198.3L244.9,198.8L245.2,199.2L245.6,199.7L245.9,200.3L246.3,200.8L246.6,201.3L246.9,201.8L247.2,202.4L247.5,202.9L247.8,203.5L248.1,204.1L248.4,204.7L248.7,205.3L248.9,205.8L249.2,206.5L246.0,211.3L245.8,210.6L245.5,210.0L245.1,209.3L244.8,208.7L244.5,208.1L244.1,207.4L243.7,206.8L243.3,206.2L242.9,205.6L242.5,205.0L242.0,204.4L241.5,203.8L241.0,203.3L240.5,202.8L240.0,202.3L239.4,201.8L238.8,201.4L238.2,201.0L237.5,200.7L236.9,200.4L236.1,200.1L235.4,199.9L234.6,199.7L233.8,199.6L233.0,199.5L232.2,199.5L231.5,199.5L230.7,199.5L230.0,199.7L229.4,199.9L228.7,200.1L228.1,200.4L227.5,200.8L226.9,201.2L226.4,201.7L225.9,202.2L225.4,202.8L225.0,203.5L224.6,204.2L224.3,204.9L224.0,205.7L223.7,206.6L223.5,207.5L223.3,208.4L223.2,209.4L223.1,210.4L223.0,211.5L223.0,212.7L223.0,213.9L223.1,215.0L223.1,216.1L223.3,217.1L223.4,218.1L223.6,219.0L223.9,219.9L224.2,220.7L224.5,221.5L224.8,222.2L225.2,222.9L225.6,223.5L226.1,224.1L226.6,224.6L227.1,225.1L227.6,225.6L228.2,226.1L228.9,226.5L229.5,227.0L230.2,227.4L230.9,227.7L231.7,228.1L232.5,228.4L233.3,228.7L237.0,229.9L238.1,230.3L239.2,230.7L240.2,231.2L241.1,231.8L242.0,232.3L242.9,233.0L243.7,233.6L244.4,234.3L245.1,235.0L245.8,235.8L246.4,236.7L246.9,237.5L247.4,238.4L247.9,239.4L248.3,240.4L248.7,241.5L249.0,242.6L249.3,243.8L249.5,245.0L249.7,246.3L249.8,247.7L249.9,249.1L250.0,250.5L250.0,252.0L250.0,253.2L250.0,254.3L249.9,255.5L249.8,256.6L249.7,257.6L249.6,258.7L249.4,259.7L249.2,260.7L249.0,261.6L248.8,262.5L248.5,263.4L248.2,264.3L247.9,265.2L247.6,266.0L247.2,266.8L246.8,267.5L246.4,268.3L246.0,269.0L245.5,269.6L245.1,270.3L244.6,270.9L244.1,271.4L243.5,272.0L243.0,272.5L242.4,273.0L241.8,273.4L241.1,273.8L240.5,274.2L239.8,274.5L239.1,274.8L238.4,275.1L237.6,275.4L236.8,275.5L236.0,275.7L235.2,275.8L234.4,275.9Z"/><path class="gl" d="M266.9,179.9L266.7,179.8L266.4,179.8L266.2,179.7L266.0,179.5L265.8,179.4L265.6,179.2L265.4,179.1L265.3,178.9L265.1,178.7L265.0,178.5L264.8,178.2L264.7,178.0L264.6,177.7L264.5,177.4L264.4,177.1L264.3,176.8L264.3,176.5L264.2,176.2L264.1,175.9L264.1,175.5L264.1,175.2L264.0,174.8L264.0,174.5L264.0,174.1L264.0,172.7L264.0,172.3L264.0,171.9L264.1,171.6L264.1,171.3L264.1,171.0L264.2,170.7L264.3,170.4L264.3,170.1L264.4,169.8L264.5,169.6L264.6,169.4L264.7,169.2L264.8,169.0L265.0,168.8L265.1,168.7L265.3,168.5L265.4,168.4L265.6,168.3L265.8,168.3L266.0,168.3L266.2,168.2L266.4,168.3L266.7,168.3L266.9,168.3L267.1,168.4L267.4,168.5L267.6,168.6L267.8,168.8L268.0,168.9L268.2,169.1L268.4,169.2L268.5,169.4L268.7,169.6L268.8,169.9L269.0,170.1L269.1,170.4L269.2,170.6L269.3,170.9L269.4,171.2L269.4,171.5L269.5,171.8L269.6,172.1L269.6,172.4L269.6,172.7L269.7,173.1L269.7,173.4L269.7,173.8L269.7,174.2L269.7,175.6L269.7,175.9L269.7,176.3L269.7,176.6L269.6,176.9L269.6,177.2L269.6,177.5L269.5,177.8L269.4,178.1L269.4,178.3L269.3,178.6L269.2,178.8L269.1,179.0L269.0,179.2L268.8,179.4L268.7,179.5L268.5,179.7L268.4,179.8L268.2,179.9L268.0,179.9L267.8,180.0L267.6,180.0L267.4,180.0L267.1,180.0L266.9,179.9ZM264.8,271.8L264.8,199.1L269.0,199.9L269.0,271.5Z"/><path class="gl" d="M295.8,271.0L295.1,271.1L294.5,271.0L293.8,270.9L293.2,270.8L292.6,270.6L292.0,270.3L291.4,270.0L290.8,269.6L290.2,269.1L289.6,268.6L289.1,268.1L288.6,267.4L288.1,266.7L287.6,266.0L287.1,265.2L286.6,264.3L286.2,263.4L285.8,262.5L285.3,261.4L285.0,260.4L284.6,259.2L284.2,258.1L283.9,256.8L283.6,255.5L283.3,254.2L283.0,252.8L282.8,251.3L282.6,249.9L282.4,248.3L282.2,246.7L282.1,245.1L282.0,243.4L281.9,241.7L281.8,240.0L281.8,238.1L281.8,236.3L281.8,234.4L281.8,232.6L281.9,230.9L282.0,229.2L282.1,227.5L282.2,225.9L282.4,224.3L282.6,222.8L282.8,221.4L283.0,219.9L283.3,218.6L283.6,217.3L283.9,216.0L284.2,214.8L284.6,213.6L285.0,212.5L285.3,211.5L285.8,210.5L286.2,209.6L286.6,208.7L287.1,207.9L287.6,207.2L288.1,206.5L288.6,205.8L289.1,205.3L289.6,204.7L290.2,204.3L290.8,203.9L291.4,203.6L292.0,203.3L292.6,203.1L293.2,202.9L293.8,202.8L294.5,202.8L295.1,202.9L295.8,202.9L296.4,203.1L297.1,203.3L297.7,203.5L298.3,203.8L298.9,204.2L299.5,204.6L300.1,205.1L300.6,205.6L301.1,206.1L301.7,206.8L302.2,207.4L302.6,208.1L303.1,208.9L303.6,209.7L304.0,210.5L304.4,211.4L304.8,212.3L305.1,213.3L305.5,214.3L305.8,215.4L306.1,216.5L306.4,217.6L306.7,218.8L307.0,220.0L307.2,221.3L307.4,222.6L307.6,223.9L307.8,225.3L308.0,226.7L308.1,228.1L308.2,229.6L308.3,231.1L308.4,232.7L308.4,234.3L308.5,235.9L308.5,237.6L308.5,239.3L308.4,240.9L308.4,242.5L308.3,244.1L308.2,245.6L308.1,247.0L308.0,248.5L307.8,249.9L307.6,251.2L307.4,252.5L307.2,253.8L307.0,255.1L306.7,256.3L306.4,257.4L306.1,258.5L305.8,259.6L305.5,260.6L305.1,261.6L304.8,262.5L304.4,263.4L304.0,264.3L303.6,265.1L303.1,265.8L302.6,266.5L302.2,267.2L301.7,267.8L301.1,268.4L300.6,268.9L300.1,269.3L299.5,269.7L298.9,270.1L298.3,270.4L297.7,270.6L297.1,270.8L296.4,270.9L295.8,271.0ZM295.8,264.6L296.5,264.5L297.2,264.3L297.9,264.1L298.5,263.7L299.1,263.3L299.7,262.8L300.3,262.3L300.8,261.6L301.3,260.9L301.8,260.1L302.2,259.3L302.7,258.3L303.1,257.3L303.4,256.2L303.8,255.0L304.0,253.8L304.3,252.5L304.5,251.1L304.7,249.7L304.9,248.1L305.0,246.6L305.1,244.9L305.1,243.2L305.1,241.4L305.1,233.5L305.1,231.7L305.1,230.0L305.0,228.3L304.9,226.7L304.7,225.2L304.5,223.7L304.3,222.3L304.0,221.0L303.8,219.8L303.4,218.6L303.1,217.4L302.7,216.4L302.2,215.4L301.8,214.4L301.3,213.6L300.8,212.8L300.3,212.1L299.7,211.5L299.1,211.0L298.5,210.5L297.9,210.1L297.2,209.8L296.5,209.6L295.8,209.4L295.1,209.4L294.4,209.4L293.7,209.5L293.0,209.7L292.4,210.0L291.8,210.3L291.2,210.8L290.6,211.4L290.1,212.0L289.5,212.8L289.0,213.6L288.6,214.5L288.1,215.5L287.7,216.6L287.4,217.8L287.0,219.1L286.7,220.4L286.5,221.9L286.3,223.4L286.1,225.0L286.0,226.7L285.9,228.5L285.8,230.3L285.8,232.3L285.8,240.7L285.8,242.7L285.9,244.5L286.0,246.3L286.1,248.0L286.3,249.6L286.5,251.2L286.7,252.6L287.0,254.0L287.4,255.3L287.7,256.6L288.1,257.7L288.6,258.8L289.0,259.7L289.5,260.6L290.1,261.4L290.6,262.1L291.2,262.7L291.8,263.2L292.4,263.7L293.0,264.0L293.7,264.3L294.4,264.5L295.1,264.6L295.8,264.6Z"/></g></svg>
+          <span class="readout mono" id="readout" aria-hidden="true">X 000.0 · Y 000.0</span>
         </div>
       </div>
-      <svg class="drawing" viewBox="0 0 420 300" role="img" aria-label="Perspective drawing of lines converging on a single point">
-        <g stroke="#EEEAE2" fill="none" stroke-linecap="round">
-          <line x1="20" y1="40" x2="380" y2="150" stroke-opacity=".55"/>
-          <line x1="20" y1="250" x2="380" y2="150" stroke-opacity=".55"/>
-          <line x1="20" y1="110" x2="380" y2="150" stroke-opacity=".22" stroke-dasharray="5 6"/>
-          <line x1="10" y1="150" x2="410" y2="150" stroke-opacity=".22" stroke-dasharray="1 6"/>
-          <line x1="60" y1="52" x2="60" y2="239" stroke-opacity=".3"/>
-          <line x1="150" y1="80" x2="150" y2="214" stroke-opacity=".3"/>
-          <line x1="225" y1="103" x2="225" y2="193" stroke-opacity=".3"/>
-          <line x1="285" y1="121" x2="285" y2="177" stroke-opacity=".3"/>
-          <line x1="330" y1="135" x2="330" y2="164" stroke-opacity=".3"/>
-          <line x1="60" y1="282" x2="330" y2="187" stroke="#C9B98F" stroke-width="1.4"/>
-          <line x1="60" y1="272" x2="60" y2="292" stroke="#C9B98F" stroke-width="1.4"/>
-          <line x1="330" y1="180" x2="330" y2="194" stroke="#C9B98F" stroke-width="1.4"/>
-          <circle cx="380" cy="150" r="5" stroke-opacity=".7"/>
-        </g>
-        <text x="380" y="132" font-size="11" text-anchor="middle" letter-spacing="2">VP</text>
-        <text x="0" y="0" font-size="11" letter-spacing="1.5" transform="translate(196 252) rotate(-19.4)" text-anchor="middle">YOU → GROWTH</text>
-      </svg>
+      <div class="titleblock">
+        <div><span class="mono">Project</span><b>Pasio Consulting</b></div>
+        <div><span class="mono">Drawing</span><b>Join the team</b></div>
+        <div><span class="mono">Location</span><b>43.65° N, 79.38° W</b></div>
+        <div><span class="mono">Positions</span><b class="open">Open</b></div>
+        <div><span class="mono">Scale</span><b>Built to grow</b></div>
+      </div>
     </div>
   </div>
 
-  <section>
-    <div class="wrap split">
-      <h2>What you'll <i>do</i></h2>
-      <div class="rows">
-        <div class="row"><span class="mono">Find</span><div><h3>Meet local businesses</h3><p>Start conversations with Toronto owners who are ready to grow.</p></div></div>
-        <div class="row"><span class="mono">Bring</span><div><h3>Bring in clients</h3><p>Turn those conversations into new clients for the firms we work with.</p></div></div>
-        <div class="row"><span class="mono">Build</span><div><h3>Build with the team</h3><p>Work alongside Pasio on strategy, branding, operations and marketing.</p></div></div>
-      </div>
+  <div class="ticker" aria-label="Toronto neighbourhoods">
+    <div class="track" aria-hidden="true">
+      <span>Leslieville<i>✦</i></span><span>The Junction<i>✦</i></span><span>Kensington Market<i>✦</i></span><span>Yorkville<i>✦</i></span><span>Liberty Village<i>✦</i></span><span>The Danforth<i>✦</i></span><span>Little Italy<i>✦</i></span><span>Distillery District<i>✦</i></span><span>Roncesvalles<i>✦</i></span><span>Queen West<i>✦</i></span><span>Leslieville<i>✦</i></span><span>The Junction<i>✦</i></span><span>Kensington Market<i>✦</i></span><span>Yorkville<i>✦</i></span><span>Liberty Village<i>✦</i></span><span>The Danforth<i>✦</i></span><span>Little Italy<i>✦</i></span><span>Distillery District<i>✦</i></span><span>Roncesvalles<i>✦</i></span><span>Queen West<i>✦</i></span>
     </div>
-  </section>
+  </div>
 
-  <section style="padding-top:0">
-    <div class="wrap split">
-      <h2>Who we're <i>looking for</i></h2>
-      <div>
-        <p class="lede" style="margin-bottom:20px">People who care about Toronto and like seeing a local business do well. Experience helps. Drive matters more.</p>
-        <div class="who"><span>Passionate</span><span>Self-starter</span><span>Good with people</span><span>Knows Toronto</span><span>Follows through</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section style="padding-top:0">
-    <div class="wrap" style="display:flex;flex-direction:column;gap:32px">
-      <h2>How it <i>works</i></h2>
-      <div class="steps">
-        <div class="step"><span class="n">1</span><h3>Fill out the form</h3><p>Tell us who you are and what you want to work on.</p></div>
-        <div class="step"><span class="n">2</span><h3>We review it</h3><p>We read every application ourselves.</p></div>
-        <div class="step"><span class="n">3</span><h3>We contact you</h3><p>If there's a fit, we'll reach out to set up a conversation.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="final">
+  <section id="roles">
     <div class="wrap">
-      <h2>Ready to <i>join us?</i></h2>
-      <a class="btn" href="https://form.jotform.com/262956151148057" target="_blank" rel="noopener">Apply to join <span aria-hidden="true">→</span></a>
+      <div class="head">
+        <h2>The <i>roles.</i></h2>
+        <p class="sub">Pick the part you want to own. Every role works directly with the firms we manage.</p>
+      </div>
+      <div class="bom">
+        <table>
+          <thead><tr><th>No.</th><th>Role</th><th>What you'll do</th><th>Type</th></tr></thead>
+          <tbody>
+            <tr><td class="no">01</td><td class="role">Client <i>growth</i></td><td class="desc">Meet Toronto business owners and bring in new clients for the firms we work with.</td><td class="qty"><b>Open</b> · Flexible</td></tr>
+            <tr><td class="no">02</td><td class="role">Marketing <i>&amp; content</i></td><td class="desc">Plan and create the campaigns and posts that put local businesses in front of the right people.</td><td class="qty"><b>Open</b> · Flexible</td></tr>
+            <tr><td class="no">03</td><td class="role">Branding <i>&amp; design</i></td><td class="desc">Shape how a business looks and sounds, from logos to websites.</td><td class="qty"><b>Open</b> · Flexible</td></tr>
+            <tr><td class="no">04</td><td class="role">Operations <i>&amp; systems</i></td><td class="desc">Build the processes that keep a business running smoothly as it grows.</td><td class="qty"><b>Open</b> · Flexible</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="spec" style="padding-top:0">
+    <div class="wrap spec">
+      <div>
+        <h2>Who we're <i>looking for.</i></h2>
+        <p class="sub" style="margin-top:20px">Every part we build to a spec. People too. Experience helps, but drive matters more.</p>
+      </div>
+      <div class="tol">
+        <div><span>Passion for local business</span><em>± 0.00</em></div>
+        <div><span>Follows through</span><em>± 0.00</em></div>
+        <div><span>Good with people</span><em>Required</em></div>
+        <div><span>Knows Toronto</span><em>Preferred</em></div>
+        <div><span>Years of experience</span><em class="soft">Not required</em></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><h2>How it <i>works.</i></h2></div>
+      <div class="flow">
+        <div class="node"><span class="mono">Step 1</span><h3>Fill out the form</h3><p>Tell us who you are and which role you want.</p></div>
+        <div class="node"><span class="mono">Step 2</span><h3>We review it</h3><p>We read every application ourselves.</p></div>
+        <div class="node"><span class="mono">Step 3</span><h3>We contact you</h3><p>If there's a fit, we'll reach out to set up a conversation.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="close">
+        <span class="reg tl"></span><span class="reg br"></span>
+        <div>
+          <span class="mono">Your seat is open</span>
+          <h2 style="margin-top:14px">Ready to <i>join us?</i></h2>
+          <div class="dimline"><span class="mono">You</span><i></i><span class="mono" style="color:var(--brass)">Pasio</span></div>
+        </div>
+        <a class="btn" href="https://form.jotform.com/262956151148057" target="_blank" rel="noopener">Apply to join <span aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 </main>
 
 <footer><div class="wrap">
-  <span class="mono">Pasio Consulting · Toronto · 43.65° N, 79.38° W</span>
-  <span class="mono">Instagram: @pasio.consulting</span>
+  <span class="mono">Pasio Consulting · Toronto</span>
+  <span class="mono">Instagram @pasio.consulting</span>
 </div></footer>
+
+<script>
+(function(){
+  var box=document.getElementById('artbox'),out=document.getElementById('readout');
+  if(!box||!out||!window.matchMedia('(pointer:fine)').matches)return;
+  box.addEventListener('pointermove',function(e){
+    var r=box.getBoundingClientRect();
+    out.textContent='X '+(e.clientX-r.left).toFixed(1).padStart(5,'0')+' · Y '+(e.clientY-r.top).toFixed(1).padStart(5,'0');
+  });
+})();
+</script>
 </body>
 </html>
